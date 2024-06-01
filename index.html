@@ -1,67 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <!--Version 1.0-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gravity Calculator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .section-container {
-            background-color: #f9f9f9;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            font-weight: bold;
-            display: block;
-        }
-        input[type="number"], input[type="range"], select {
-            width: calc(100% - 20px);
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        p {
-            margin: 10px 0;
-        }
-        span {
-            font-weight: bold;
-        }
-        h1, h2 {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
+    <head>
+        <!--Version 2.0-->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gravity Calculator</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background-color: #f0f0f0;
+            }
+            .sticky {
+                position: -webkit-sticky; /* For Safari */
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+            .section-container {
+                background-color: #f9f9f9;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            label {
+                font-weight: bold;
+                display: block;
+            }
+            input[type="number"], input[type="range"], select {
+                width: calc(100% - 20px);
+                margin-bottom: 10px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-sizing: border-box;
+            }
+            p {
+                margin: 10px 0;
+            }
+            span {
+                font-weight: bold;
+            }
+            h1, h2, h3{
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
         <div class="section-container">
-            <h1>Gravity Calculator</h1>
+            <h1>Graviton</h1>
+            <h3>Gravitational Acceleration Calculator
         </div>
-
+        
         <!-- Density and Radius Section -->
-        <div class="section-container">
+        <div class="section-container sticky">
             <h2>Density and Radius</h2>
-            <label for="material">Material Density (g/cm³): <span id="materialDensity">0</span></label>
+            <label for="material">Material Density: <span id="materialDensity">0</span> g/cm<sup>3</sup></label>
             <select id="material">
                 <option value="1">Water</option>
+                <option value="2.2">Carbon</option>
                 <option value="2.58">Glass</option>
                 <option value="5.52" selected>Earth (Average)</option>
                 <option value="7.87">Iron</option>
@@ -69,62 +68,98 @@
                 <option value="19.32">Gold</option>
                 <option value="21.46">Platinum</option>
             </select>
-            <label for="radius">Radius (km): <span id="radiusWidth">6371</span> km</label>
+            <label for="radius">Radius: <span id="radiusWidth">6371</span> km</label>
             <input type="range" id="radius" min="1" max="10000" step="1" value="6371"><br>
         </div>
 
         <!-- Gravity Section -->
         <div class="section-container">
-            <h2>Gravity / Acceleration</h2>
+            <h2>Gravity and Acceleration</h2>
             <p>Gravity: <span id="gravity">0</span> m/s<sup>2</sup></p>
-            <p><span id="earthGs">0</span>% of Earth's Gravity</p>
-            <p><span id="marsGs">0</span>% of Mars's Gravity</p>
-            <p><span id="moonGs">0</span>% of the Moon's Gravity</p>
+            <p><span id="earthGs">0</span>% of Earth's gravity</p>
+            <p><span id="marsGs">0</span>% of Mars's gravity</p>
+            <p><span id="moonGs">0</span>% of the Moon's gravity</p>
         </div>
 
         <!-- Orbital and Escape Velocity Section -->
         <div class="section-container">
             <h2>Orbital Characteristics</h2>
+            <p>(Expected Orbiting Altitude: <span id="altitude">0</span> km)</p>
             <p>Orbital Velocity: <span id="orbitalVelocity">0</span> m/s</p>
+            <p>Orbital Period: <span id="orbitalPeriod">0</span> minutes</p>
             <p>Escape Velocity: <span id="escapeVelocity">0</span> m/s</p>
         </div>
-    </div>
-    <script>
-        const G = 6.674 * Math.pow(10, -11); // Gravitational constant
+        
+        <!-- Size and Dimensions -->
+        <div class="section-container">
+            <h2>Area</h2>
+            <p>Area: <span id="surfaceArea">0</span> km<sup>2</sup></p><!-- Fix -->
+            <p><span id="earthArea">0</span>% of Earth's surface area</p>
+            <p><span id="marsArea">0</span>% of Mars's surface area</p>
+            <p><span id="moonArea">0</span>% of the Moon's surface area</p>
+        </div>
+        
+        <div class="section-container">
+            <h2>Circumference</h2>
+            <p>Circumference: <span id="circumference">0</span> km</p><!-- Fix -->
+            <p><span id="earthCircumference">0</span>% of Earth's circumference</p>
+            <p><span id="marsCircumference">0</span>% of Mars's circumference</p>
+            <p><span id="moonCircumference">0</span>% of the Moon's circumference</p>
+        </div>
+        <script>
+            const G = 6.674 * Math.pow(10, -11); // Gravitational constant
 
-        function calculateGravity() {
-            const density = parseFloat(document.getElementById('material').value); // Density in g/cm³
-            const densityKgPerM3 = density * 1000; // Convert g/cm³ to kg/m³
-            const radius = parseFloat(document.getElementById('radius').value) * 1000; // Convert to meters
-            const mass = densityKgPerM3 * (4/3) * Math.PI * Math.pow(radius, 3); // Calculate mass
-            const gravity = (G * mass) / Math.pow(radius, 2); // Calculate gravity
+            function calculateGravity() {
+                const density = parseFloat(document.getElementById("material").value); // Density in g/cm³
+                const densityKgPerM3 = density * 1000; // Convert g/cm³ to kg/m³
+                const radius = parseFloat(document.getElementById("radius").value) * 1000; // Convert to meters
+                const mass = densityKgPerM3 * (4/3) * Math.PI * Math.pow(radius, 3); // Calculate mass
+                const gravity = (G * mass) / Math.pow(radius, 2); // Calculate gravity
 
-            // Orbital Velocity calculation at 5% altitude of the radius
-            const altitude = 0.05 * (radius / 1000);
-            const orbitalVelocity = Math.sqrt((G * mass) / (radius + altitude));
-            const escapeVelocity = Math.sqrt((2 * G * mass) / (radius + altitude));
-            //document.getElementById('altitude').textContent = altitude.toFixed(2);
+                // Orbital Velocity calculation at 5% altitude of the radius
+                const altitude = 0.05 * radius;
+                const orbitalVelocity = Math.sqrt((G * mass) / (radius + altitude));
+                const escapeVelocity = Math.sqrt((2 * G * mass) / (radius + altitude));
+                const orbitalPeriod = 2 * Math.PI * Math.sqrt(Math.pow(radius + altitude, 3) / (G * mass));
+                
 
-            document.getElementById('materialDensity').textContent = density.toFixed(2); // Update density in label
-            document.getElementById('gravity').textContent = gravity.toFixed(2);
- 
-            document.getElementById('orbitalVelocity').textContent = orbitalVelocity.toFixed(2);
-            document.getElementById('escapeVelocity').textContent = escapeVelocity.toFixed(2);
- 
-            document.getElementById('earthGs').textContent = (gravity / 9.81 * 100).toFixed(2);
-            document.getElementById('marsGs').textContent = (gravity / 3.71 * 100).toFixed(2);
-            document.getElementById('moonGs').textContent = (gravity / 1.62 * 100).toFixed(2);
-        }
+                // Dimensions of the planet
+                const surfaceArea = 4 * Math.PI * Math.pow(radius, 2);
+                const circumference = 2 * Math.PI * radius;
 
-        // Event listeners to recalculate gravity on input change
-        document.getElementById('material').addEventListener('change', calculateGravity);
-        document.getElementById('radius').addEventListener('input', function() {
-            document.getElementById('radiusWidth').textContent = this.value;
+
+                document.getElementById("materialDensity").textContent = density.toFixed(2); // Update density in label
+                document.getElementById("gravity").textContent = gravity.toFixed(2);
+    
+                document.getElementById("altitude").textContent = (altitude / 1000).toFixed(2);
+                document.getElementById("orbitalVelocity").textContent = orbitalVelocity.toFixed(2);
+                document.getElementById("escapeVelocity").textContent = escapeVelocity.toFixed(2);
+                document.getElementById("orbitalPeriod").textContent = (orbitalPeriod / 60).toFixed(2);
+    
+                document.getElementById("earthGs").textContent = (gravity / 9.81 * 100).toFixed(2);
+                document.getElementById("marsGs").textContent = (gravity / 3.71 * 100).toFixed(2);
+                document.getElementById("moonGs").textContent = (gravity / 1.62 * 100).toFixed(2);
+
+                document.getElementById("surfaceArea").textContent = (surfaceArea / 1000000).toFixed(2); // Square Kilometers
+                document.getElementById("earthArea").textContent = (((surfaceArea / 1000000) / 510072000) * 100).toFixed(2);
+                document.getElementById("marsArea").textContent = (((surfaceArea / 1000000) / 144371391) * 100).toFixed(2);
+                document.getElementById("moonArea").textContent = (((surfaceArea / 1000000) / 37932330) * 100).toFixed(2);
+                                                                   
+                document.getElementById("circumference").textContent = (circumference / 1000).toFixed(2); // Kilometers
+                document.getElementById("earthCircumference").textContent = (((circumference / 1000) / 40075) * 100).toFixed(2);
+                document.getElementById("marsCircumference").textContent = (((circumference / 1000) / 21244) * 100).toFixed(2);
+                document.getElementById("moonCircumference").textContent = (((circumference / 1000) / 10921) * 100).toFixed(2);
+            }
+
+            // Event listeners to recalculate gravity on input change
+            document.getElementById("material").addEventListener("change", calculateGravity);
+            document.getElementById("radius").addEventListener("input", function() {
+                document.getElementById("radiusWidth").textContent = this.value;
+                calculateGravity();
+            });
+
+            // Initial calculation
             calculateGravity();
-        });
-
-        // Initial calculation
-        calculateGravity();
-    </script>
-</body>
+        </script>
+    </body>
 </html>
